@@ -14,6 +14,7 @@ import com.cursos.randtech.projetospringboot.entites.OrderItem;
 import com.cursos.randtech.projetospringboot.entites.Product;
 import com.cursos.randtech.projetospringboot.entites.User;
 import com.cursos.randtech.projetospringboot.entites.enums.OrderStatus;
+import com.cursos.randtech.projetospringboot.entites.enums.Payment;
 import com.cursos.randtech.projetospringboot.repositories.CategoryRepository;
 import com.cursos.randtech.projetospringboot.repositories.OrderItemRepository;
 import com.cursos.randtech.projetospringboot.repositories.OrderRepository;
@@ -84,6 +85,11 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+	
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 	}
 
 }
