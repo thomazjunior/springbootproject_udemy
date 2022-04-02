@@ -13,7 +13,7 @@ import com.cursos.randtech.projetospringboot.entites.Category;
 import com.cursos.randtech.projetospringboot.services.CategoryService;
 
 @RestController
-@RequestMapping(value = "/categorys")
+@RequestMapping(value = "/categories")
 public class CategoryResource {
 	
 	@Autowired
