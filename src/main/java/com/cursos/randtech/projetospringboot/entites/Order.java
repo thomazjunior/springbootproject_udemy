@@ -18,7 +18,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.cursos.randtech.projetospringboot.entites.enums.OrderStatus;
-import com.cursos.randtech.projetospringboot.entites.enums.Payment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -38,13 +37,13 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
-	
+
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
-	
+
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment;
-	
+
 	public Order() {
 
 	}
@@ -53,7 +52,8 @@ public class Order implements Serializable {
 		super();
 		this.id = id;
 		this.moment = moment;
-		setOrderStatus(orderStatus);;
+		setOrderStatus(orderStatus);
+		;
 		this.client = client;
 	}
 
@@ -90,8 +90,6 @@ public class Order implements Serializable {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}
-	
-	
 
 	public Payment getPayment() {
 		return payment;
@@ -101,10 +99,19 @@ public class Order implements Serializable {
 		this.payment = payment;
 	}
 
-	public Set<OrderItem> getItems (){
+	public Set<OrderItem> getItems() {
 		return items;
 	}
-	
+
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum = sum + x.getSubTotal();
+		}
+
+		return sum;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
